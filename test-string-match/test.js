@@ -8,6 +8,5 @@
 
 	(function () {
 		var percentage = sm.stringMatch(compareString, toString, options);
-		console.log(percentage);
 	}).call(this);
 }).call(this);
