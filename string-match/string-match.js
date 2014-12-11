@@ -1,4 +1,5 @@
-//wondering if this would be feasable as a helper in a module
+//wondering if this is proper
+
 var breakString = function (string) {
 
 	var array = string.toLowerCase().split(' ');
@@ -12,6 +13,7 @@ var breakString = function (string) {
 	}
 	return array;
 }
+
 module.exports = {
 	/*this function returns percentage value*/
 	stringMatch: function (compareString, toString, options) {
@@ -21,6 +23,7 @@ module.exports = {
 
 		compareArray = breakString(compareString);
 		toArray = breakString(toString);
+		console.log(compareArray + '\n' + toArray);
 
 		return percentage;
 	}
