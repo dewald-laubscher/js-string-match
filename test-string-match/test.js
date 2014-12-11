@@ -1,3 +1,3 @@
 (function () {
-	sm = require('./string-match/string-match.js')
+	sm = require('./string-match/string-match.js');
 }).call(this);
