@@ -9,7 +9,8 @@ var breakString = function (string) {
 		for (ii in array[i]) {
 			innerArray[ii] = array[i][ii];
 		}
-		array[i] = innerArray[ii];
+		array[i] = innerArray;
+		innerArray = [];
 	}
 	return array;
 }
@@ -23,7 +24,6 @@ module.exports = {
 
 		compareArray = breakString(compareString);
 		toArray = breakString(toString);
-		console.log(compareArray + '\n' + toArray);
 
 		return percentage;
 	}
