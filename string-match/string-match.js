@@ -24,18 +24,38 @@ var breakString = function (string) {
 	return array;
 }
 
+var introspection = function (array, i, object) {
+	var count = 0,
+			object = {};
+	/*
+		will return object
+		- from end
+		- number
+		- 
+	*/
+
+	if (i < array.length) {
+		var object = introspection(array, i, object);
+		count = object['number'];
+	}
+	return {};
+}
+var inspection = function (array) {}
 
 module.exports = {
 	/*this function returns percentage value*/
 	stringMatch: function (compareString, toString, options) {
 		if (typeof options !== undefined) options = [];
 
-		var percentage = 1; //0-1
+		var percentage = 1, //0-1
+				object = {};
 
 		compareArray = breakString(compareString, options.noParthesis);
 		toArray = breakString(toString);
-		console.log(compareArray);
-		console.log(toArray);
+
+		for ( i in compareArray) {
+			object = introspection(compareArray, 0 {});
+		}
 
 		return percentage;
 	}
