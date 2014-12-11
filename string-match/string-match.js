@@ -1,15 +1,19 @@
 module.exports = {
 	/*this function returns percentage value*/
-	stringMatch: function (compareString, toString) {
+	stringMatch: function (compareString, toString, options) {
+		if (typeof options !== undefined) options = [];
+
 		var percentage = 0; //0-1
-		compareArray = breakString(compareString);
-		toArray = breakString(toString);
+
+		compareArray = _breakString: compareString;
+		toArray = _breakString: toString;
 
 		return percentage;
 	}
 		//wondering if this would be feasable as a helper in a module
-		function breakString(string) {
-			var array = string.split(' ');
+		var breakString = function (string) {
+
+			var array = toLowerCase(string).split(' ');
 			var innerArray = [];
 
 			for(i in array) {
