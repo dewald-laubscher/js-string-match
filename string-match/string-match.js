@@ -1,12 +1,15 @@
 //wondering if this is proper
 
 var breakString = function (string) {
+	// for single layer comparison
+	string = string.toLowerCase().replace(/\s+/g, '');
 	var array = [];
-	for (i in string.toLowerCase()) {
-		array 
+
+	for (i in string) {
+		array[array.length] = string[i];
 	}
 
-	// for two layers string comparison, cant wrap my head around this yet
+	// for multi layer comparison
 	// var array = string.toLowerCase().split(' ');
 	// var innerArray = [];
 
@@ -17,7 +20,8 @@ var breakString = function (string) {
 	// 	array[i] = innerArray;
 	// 	innerArray = [];
 	// }
-	// return array;
+
+	return array;
 }
 
 
@@ -27,10 +31,11 @@ module.exports = {
 		if (typeof options !== undefined) options = [];
 
 		var percentage = 1; //0-1
-		var introspectrum = [];
 
-		compareArray = breakString(compareString);
+		compareArray = breakString(compareString, options.noParthesis);
 		toArray = breakString(toString);
+		console.log(compareArray);
+		console.log(toArray);
 
 		return percentage;
 	}
