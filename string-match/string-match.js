@@ -105,7 +105,6 @@ var startingPositions = function (compareObj, toObj) {
 			}
 		}
 	}
-	console.log(startObj);
 }
 
 module.exports = {
