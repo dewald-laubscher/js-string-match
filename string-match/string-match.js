@@ -63,9 +63,10 @@ var startingPositions = function (compareObj, toObj) {
 	var startObj = {},
 			weight = {
 				'char': 4,
+				'descendant': 3,
 				'count': 3,
 				'recur': 1,
-				'fromEnd': 2,
+				'fromEnd': 3,
 				setTotal: function () {
 					var total = 0,
 							amount = 0;
@@ -83,6 +84,8 @@ var startingPositions = function (compareObj, toObj) {
 
 	//main
 	for(i in toObj) {
+		var isFromEnd = toObj[i].fromEnd >= compareObj[0].fromEnd;
+
 		startObj[i] = {'value': 0};
 		if (toObj[i].char === compareObj[0].char) {
 			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.char / weight.total));
@@ -90,13 +93,19 @@ var startingPositions = function (compareObj, toObj) {
 		if (toObj[i].count >= compareObj[0].count) {
 			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.count / weight.total));
 		}
-		if (toObj[i].fromEnd >= compareObj[0].fromEnd) {
+		if (isFromEnd) {
 			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.fromEnd / weight.total));
 		}
 		if (toObj[i].recur >= compareObj[0].recur) {
 			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.recur / weight.total));
 		}
+		if (toObj[+i+1] && isFromEnd) {
+			if (toObj[+i+1].char === compareObj[1].char) {
+				startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.descendant / weight.total));
+			}
+		}
 	}
+	console.log(startObj);
 }
 
 module.exports = {
