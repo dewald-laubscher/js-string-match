@@ -67,7 +67,8 @@ var startingPositions = function (compareObj, toObj) {
 				'recur': 1,
 				'fromEnd': 2,
 				setTotal: function () {
-					var total = 0;
+					var total = 0,
+							amount = 0;
 					for (i in this) {
 						if (typeof this[i] === 'number') {
 							total = (+total) + (+this[i]);
@@ -77,15 +78,25 @@ var startingPositions = function (compareObj, toObj) {
 				}
 			};
 
+	// init
 	weight.setTotal();
-	// for(i in toObj) {
-	// 	startObj[i][count] = 0;
-	// 	if (toObj[i].char === compareObj[0]) {
-	// 		startObj[i][count]
-	// 	}
-	// 	if (toObj[i].fromEnd > compareObj[0].fromEnd) {
-	// 	}
-	// }
+
+	//main
+	for(i in toObj) {
+		startObj[i] = {'value': 0};
+		if (toObj[i].char === compareObj[0].char) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.char / weight.total));
+		}
+		if (toObj[i].count >= compareObj[0].count) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.count / weight.total));
+		}
+		if (toObj[i].fromEnd >= compareObj[0].fromEnd) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.fromEnd / weight.total));
+		}
+		if (toObj[i].recur >= compareObj[0].recur) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.recur / weight.total));
+		}
+	}
 }
 
 module.exports = {
