@@ -62,7 +62,7 @@ var startingPositions = function (compareObj, toObj) {
 	*/
 	var startObj = {},
 			weight = {
-				'char': 4,
+				'char': 5,
 				'descendant': 3,
 				'count': 3,
 				'recur': 1,
