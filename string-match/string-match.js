@@ -31,6 +31,7 @@ var introspection = function (array, i) {
 		- array: to introspect
 		- i: length of array
 		will return object
+		- char: the charaacter to whom these properties belong
 		- count: shou occurances
 		- recur: show first recuring index after object
 		- fromEnd: show count from end
@@ -50,7 +51,9 @@ var introspection = function (array, i) {
 	}
 	return {};
 }
-var inspection = function (compareObj, toObj) {}
+var inspection = function (compareObj, toObj) {
+	console.log(compareObj + '\n' + toObj);
+}
 
 module.exports = {
 	/*this function returns percentage value*/
@@ -60,13 +63,15 @@ module.exports = {
 		var percentage = 1, //0-1
 				object = {};
 
+		// build arrays
 		compareArray = breakString(compareStr, options.noParthesis);
 		toArray = breakString(toStr);
 
+		// from arrays to objects
 		compareObject = introspection(compareArray, compareArray.length);
 		toObject =  introspection(toArray, toArray.length);
 
-		inspection
+		inspection(compareObject, toObject);
 
 		return percentage;
 	}
