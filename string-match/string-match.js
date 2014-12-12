@@ -1,5 +1,4 @@
 //wondering if this is proper
-
 var breakString = function (string) {
 	// for single layer comparison
 	string = string.toLowerCase().replace(/\s+/g, '');
@@ -31,6 +30,7 @@ var introspection = function (array, i) {
 		- array: to introspect
 		- i: length of array
 		will return object
+		- char: the charaacter to whom these properties belong
 		- count: shou occurances
 		- recur: show first recuring index after object
 		- fromEnd: show count from end
@@ -41,7 +41,7 @@ var introspection = function (array, i) {
 		var recur = -1;
 		for (ii in array) {
 			if (ii > i && array[i] === array[ii]) {
-				if (recur < 0) recur = ii;
+				if (recur < 0) recur = +ii;
 				count++;
 			}
 		}
@@ -50,7 +50,63 @@ var introspection = function (array, i) {
 	}
 	return {};
 }
-var inspection = function (compareObj, toObj) {}
+var inspection = function (compareObj, toObj) {
+	// console.log(compareObj);
+	// console.log(toObj);
+	startObj = startingPositions(compareObj, toObj);
+}
+
+var startingPositions = function (compareObj, toObj) {
+	/*
+		find nodes in toString/obj that are feasable for starting position
+	*/
+	var startObj = {},
+			weight = {
+				'char': 4,
+				'descendant': 3,
+				'count': 3,
+				'recur': 1,
+				'fromEnd': 3,
+				setTotal: function () {
+					var total = 0,
+							amount = 0;
+					for (i in this) {
+						if (typeof this[i] === 'number') {
+							total = (+total) + (+this[i]);
+						}
+					};
+					this['total'] = total;
+				}
+			};
+
+	// init
+	weight.setTotal();
+
+	//main
+	for(i in toObj) {
+		var isFromEnd = toObj[i].fromEnd >= compareObj[0].fromEnd;
+
+		startObj[i] = {'value': 0};
+		if (toObj[i].char === compareObj[0].char) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.char / weight.total));
+		}
+		if (toObj[i].count >= compareObj[0].count) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.count / weight.total));
+		}
+		if (isFromEnd) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.fromEnd / weight.total));
+		}
+		if (toObj[i].recur >= compareObj[0].recur) {
+			startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.recur / weight.total));
+		}
+		if (toObj[+i+1] && isFromEnd) {
+			if (toObj[+i+1].char === compareObj[1].char) {
+				startObj[i]['value'] = startObj[i]['value'] + (1 * (weight.descendant / weight.total));
+			}
+		}
+	}
+	console.log(startObj);
+}
 
 module.exports = {
 	/*this function returns percentage value*/
@@ -60,13 +116,15 @@ module.exports = {
 		var percentage = 1, //0-1
 				object = {};
 
+		// build arrays
 		compareArray = breakString(compareStr, options.noParthesis);
 		toArray = breakString(toStr);
 
+		// from arrays to objects
 		compareObject = introspection(compareArray, compareArray.length);
 		toObject =  introspection(toArray, toArray.length);
 
-		inspection
+		inspection(compareObject, toObject);
 
 		return percentage;
 	}
