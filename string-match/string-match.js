@@ -42,7 +42,7 @@ var introspection = function (array, i) {
 		var recur = -1;
 		for (ii in array) {
 			if (ii > i && array[i] === array[ii]) {
-				if (recur < 0) recur = ii;
+				if (recur < 0) recur = +ii;
 				count++;
 			}
 		}
@@ -52,7 +52,15 @@ var introspection = function (array, i) {
 	return {};
 }
 var inspection = function (compareObj, toObj) {
-	console.log(compareObj + '\n' + toObj);
+	console.log(compareObj);
+	console.log(toObj);
+}
+
+var startingPositions = function (compareObj, toObj) {
+	/*
+		find nodes in toString/obj that are feasable for starting position
+	*/
+
 }
 
 module.exports = {
