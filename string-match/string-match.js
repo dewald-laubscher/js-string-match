@@ -27,6 +27,9 @@ var breakString = function (string) {
 var introspection = function (array, i) {
 	var count = 0;
 	/*
+		Parameters
+		- array: to introspect
+		- i: length of array
 		will return object
 		- count: shou occurances
 		- recur: show first recuring index after object
@@ -42,26 +45,28 @@ var introspection = function (array, i) {
 				count++;
 			}
 		}
-		object[i] = {'count': count,'recur': recur,'fromEnd': array.length - i - 1}
+		object[i] = {'char': array[i],'count': count,'recur': recur,'fromEnd': array.length - i - 1}
 		return object;
 	}
 	return {};
 }
-var inspection = function (array) {}
+var inspection = function (compareObj, toObj) {}
 
 module.exports = {
 	/*this function returns percentage value*/
-	stringMatch: function (compareString, toString, options) {
+	stringMatch: function (compareStr, toStr, options) {
 		if (typeof options !== undefined) options = [];
 
 		var percentage = 1, //0-1
 				object = {};
 
-		compareArray = breakString(compareString, options.noParthesis);
-		toArray = breakString(toString);
+		compareArray = breakString(compareStr, options.noParthesis);
+		toArray = breakString(toStr);
 
-		object = introspection(compareArray, compareArray.length);
-		console.log(object);
+		compareObject = introspection(compareArray, compareArray.length);
+		toObject =  introspection(toArray, toArray.length);
+
+		inspection
 
 		return percentage;
 	}
