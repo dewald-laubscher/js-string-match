@@ -24,19 +24,26 @@ var breakString = function (string) {
 	return array;
 }
 
-var introspection = function (array, i, object) {
-	var count = 0,
-			object = {};
+var introspection = function (array, i) {
+	var count = 0;
 	/*
 		will return object
-		- from end
-		- number
-		- 
+		- count: shou occurances
+		- recur: show first recuring index after object
+		- fromEnd: show count from end
 	*/
-
-	if (i < array.length) {
-		var object = introspection(array, i, object);
-		count = object['number'];
+	var i = i - 1;
+	if (i >= 0) {
+		var object = introspection(array, i);
+		var recur = -1;
+		for (ii in array) {
+			if (ii > i && array[i] === array[ii]) {
+				if (recur < 0) recur = ii;
+				count++;
+			}
+		}
+		object[i] = {'count': count,'recur': recur,'fromEnd': array.length - i - 1}
+		return object;
 	}
 	return {};
 }
@@ -53,9 +60,8 @@ module.exports = {
 		compareArray = breakString(compareString, options.noParthesis);
 		toArray = breakString(toString);
 
-		for ( i in compareArray) {
-			object = introspection(compareArray, 0 {});
-		}
+		object = introspection(compareArray, compareArray.length);
+		console.log(object);
 
 		return percentage;
 	}
