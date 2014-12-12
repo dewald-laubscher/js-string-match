@@ -1,5 +1,4 @@
 //wondering if this is proper
-
 var breakString = function (string) {
 	// for single layer comparison
 	string = string.toLowerCase().replace(/\s+/g, '');
@@ -52,15 +51,41 @@ var introspection = function (array, i) {
 	return {};
 }
 var inspection = function (compareObj, toObj) {
-	console.log(compareObj);
-	console.log(toObj);
+	// console.log(compareObj);
+	// console.log(toObj);
+	startObj = startingPositions(compareObj, toObj);
 }
 
 var startingPositions = function (compareObj, toObj) {
 	/*
 		find nodes in toString/obj that are feasable for starting position
 	*/
+	var startObj = {},
+			weight = {
+				'char': 4,
+				'count': 3,
+				'recur': 1,
+				'fromEnd': 2,
+				setTotal: function () {
+					var total = 0;
+					for (i in this) {
+						if (typeof this[i] === 'number') {
+							total = (+total) + (+this[i]);
+						}
+					};
+					this['total'] = total;
+				}
+			};
 
+	weight.setTotal();
+	// for(i in toObj) {
+	// 	startObj[i][count] = 0;
+	// 	if (toObj[i].char === compareObj[0]) {
+	// 		startObj[i][count]
+	// 	}
+	// 	if (toObj[i].fromEnd > compareObj[0].fromEnd) {
+	// 	}
+	// }
 }
 
 module.exports = {
