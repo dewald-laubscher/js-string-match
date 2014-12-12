@@ -54,6 +54,8 @@ var inspection = function (compareObj, toObj) {
 	// console.log(compareObj);
 	// console.log(toObj);
 	startObj = startingPositions(compareObj, toObj);
+
+	
 }
 
 var startingPositions = function (compareObj, toObj) {
@@ -105,6 +107,7 @@ var startingPositions = function (compareObj, toObj) {
 			}
 		}
 	}
+	return startObj;
 }
 
 module.exports = {
