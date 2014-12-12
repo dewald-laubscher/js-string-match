@@ -51,11 +51,15 @@ var introspection = function (array, i) {
 	return {};
 }
 var inspection = function (compareObj, toObj) {
-	// console.log(compareObj);
-	// console.log(toObj);
-	startObj = startingPositions(compareObj, toObj);
+	var percentage = 0,
+			starting = [],
+			doIndex = 0,
+			doWhile = percentage < 80 && doIndex < starting.length;
+	starting = startingPositions(compareObj, toObj);
 
-	
+	// do {
+	// } while (doWhile);
+
 }
 
 var startingPositions = function (compareObj, toObj) {
@@ -63,6 +67,7 @@ var startingPositions = function (compareObj, toObj) {
 		find nodes in toString/obj that are feasable for starting position
 	*/
 	var startObj = {},
+			starting = [],
 			weight = {
 				'char': 5,
 				'descendant': 3,
@@ -107,7 +112,10 @@ var startingPositions = function (compareObj, toObj) {
 			}
 		}
 	}
-	return startObj;
+	for (i in startObj) {
+		if (startObj[i].value > .5) starting[starting.length] = i;
+	}
+	return starting;
 }
 
 module.exports = {
