@@ -78,17 +78,27 @@ var inspection = function (compareObj, toObj) {
 	weight.setTotal();
 
 	do {
+		var toErr = 0,
+				compareErr = 0;
+
 		for(i in compareObj) {
-			compareObj[0].percentage = 0;
+			compareObj[i].percentage = 0;
+			var toIndex = +i + toErr,
+					compareIndex = +i + compareErr;
 
 			// comparison wrapper char match
-			if (compareObj[0].char == toObj[0].char) {
+			if (compareObj[i].char == toObj[i].char) {
 			}
-			else if (compareObj[0++].char == toObj[0].char) {
+			else if (compareObj[i++].char == toObj[i++].char) {
+				//either both are extra char or wrong char
 			}
-			else if (compareObj[0++].char == toObj[0++].char) {
+			else if (compareObj[i++].char == toObj[i].char) {
+				//compare string has extra char
+				compareErr++;
 			}
-			else if (compareObj[0].char == toObj[0++].char) {
+			else if (compareObj[i].char == toObj[i++].char) {
+				//either both are extra char or wrong char
+				toErr++;
 			}
 			else {
 				//no wrapper case found just rate
