@@ -127,7 +127,7 @@ module.exports = {
 				object = {};
 
 		// build arrays
-		compareArray = breakString(compareStr, options.noParthesis);
+		compareArray = breakString(compareStr);
 		toArray = breakString(toStr);
 
 		// from arrays to objects
