@@ -30,8 +30,8 @@ var introspection = function (array, i) {
 		- array: to introspect
 		- i: length of array
 		will return object
-		- char: the charaacter to whom these properties belong
-		- count: shou occurances
+		- char: the character to whom these properties belong
+		- count: show occurances
 		- recur: show first recuring index after object
 		- fromEnd: show count from end
 	*/
@@ -82,9 +82,10 @@ var inspection = function (compareObj, toObj) {
 				compareErr = 0;
 
 		for(i in compareObj) {
-			compareObj[i].percentage = 0;
 			var toIndex = toErr + parseInt(starting[doIndex]) + parseInt(i),
 					compareIndex = compareErr + parseInt(i);
+					
+			compareObj[i].percentage = 0;
 
 			if (toIndex <= Object.keys(toObj).length - 1 && compareIndex <= Object.keys(compareObj).length - 1) {
 				// comparison wrapper char match
@@ -92,16 +93,17 @@ var inspection = function (compareObj, toObj) {
 						toLast = toIndex == Object.keys(toObj).length - 1;
 
 				if (compareObj[compareIndex].char == toObj[toIndex].char) {
+					compareObj[i].percentage = compareObj[i].percentage + (weight.char / weight.total);
 				}
-				else if (compareLast && toLast) {
-					if (compareObj[compareIndex++].char == toObj[toIndex++].char) {
-						//either both are extra char or wrong char
-					}
-				}
+				// else if (compareLast && toLast) {
+				// 	if (compareObj[compareIndex++].char == toObj[toIndex++].char) {
+				// 		//either both are extra char or wrong char
+				// 	}
+				// }
 				else if (compareLast) {
 					if (compareObj[compareIndex++].char == toObj[toIndex].char) {
 						//compare string has extra char
-						compareErr++;
+						toErr--;
 					}
 				}
 				else if (toLast) {
@@ -115,6 +117,7 @@ var inspection = function (compareObj, toObj) {
 				}
 			}
 		}
+
 
 		doIndex++;
 	} while (doIndex < starting.length);
