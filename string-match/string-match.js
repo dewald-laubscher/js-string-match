@@ -64,7 +64,7 @@ var inspection = function (compareObj, toObj) {
 
 var startingPositions = function (compareObj, toObj) {
 	/*
-		find nodes in toString/obj that are feasable for starting position
+		find nodes in obj that are feasable for starting position
 	*/
 	var startObj = {},
 			starting = [],
