@@ -53,12 +53,33 @@ var introspection = function (array, i) {
 var inspection = function (compareObj, toObj) {
 	var percentage = -1,
 			starting = startingPositions(compareObj, toObj),
-			doIndex = 0,
-			doWhile = percentage < 80 && doIndex < starting.length;
+			doIndex = 0;
 
-	// do {
-	// } while (doWhile);
+	var weight = {
+				'char': 5,
+				'descendant': 3,
+				'antecedant': 3,
+				'count': 3,
+				'recur': 1,
+				'fromEnd': 3,
+				setTotal: function () {
+					var total = 0,
+							amount = 0;
+					for (i in this) {
+						if (typeof this[i] === 'number') {
+							total = (+total) + (+this[i]);
+						}
+					};
+					this['total'] = total;
+				}
+			};
 
+	weight.setTotal();
+	
+	do {
+		
+		doIndex++;
+	} while (percentage > .8 && doIndex < starting.length);
 }
 
 var startingPositions = function (compareObj, toObj) {
