@@ -51,11 +51,10 @@ var introspection = function (array, i) {
 	return {};
 }
 var inspection = function (compareObj, toObj) {
-	var percentage = 0,
-			starting = [],
+	var percentage = -1,
+			starting = startingPositions(compareObj, toObj),
 			doIndex = 0,
 			doWhile = percentage < 80 && doIndex < starting.length;
-	starting = startingPositions(compareObj, toObj);
 
 	// do {
 	// } while (doWhile);
@@ -134,7 +133,7 @@ module.exports = {
 		compareObject = introspection(compareArray, compareArray.length);
 		toObject =  introspection(toArray, toArray.length);
 
-		inspection(compareObject, toObject);
+		percentage = inspection(compareObject, toObject);
 
 		return percentage;
 	}
