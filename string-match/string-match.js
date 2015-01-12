@@ -30,8 +30,8 @@ var introspection = function (array, i) {
 		- array: to introspect
 		- i: length of array
 		will return object
-		- char: the charaacter to whom these properties belong
-		- count: shou occurances
+		- char: the character to whom these properties belong
+		- count: show occurances
 		- recur: show first recuring index after object
 		- fromEnd: show count from end
 	*/
@@ -51,18 +51,84 @@ var introspection = function (array, i) {
 	return {};
 }
 var inspection = function (compareObj, toObj) {
-	// console.log(compareObj);
-	// console.log(toObj);
-	startObj = startingPositions(compareObj, toObj);
+	var percentage = -1,
+			starting = startingPositions(compareObj, toObj),
+			subCompareObj = {},
+			doIndex = 0;
 
-	
+	var weight = {
+				'char': 5,
+				'descendant': 3,
+				'antecedant': 3,
+				'count': 3,
+				'recur': 1,
+				'fromEnd': 3,
+				setTotal: function () {
+					var total = 0,
+							amount = 0;
+					for (i in this) {
+						if (typeof this[i] === 'number') {
+							total = (+total) + (+this[i]);
+						}
+					};
+					this['total'] = total;
+				}
+			};
+
+	weight.setTotal();
+
+	do {
+		var toErr = 0,
+				compareErr = 0;
+
+		for(i in compareObj) {
+			var toIndex = toErr + parseInt(starting[doIndex]) + parseInt(i),
+					compareIndex = compareErr + parseInt(i);
+					
+			compareObj[i].percentage = 0;
+
+			if (toIndex <= Object.keys(toObj).length - 1 && compareIndex <= Object.keys(compareObj).length - 1) {
+				// comparison wrapper char match
+				var compareLast = compareIndex == Object.keys(compareObj).length - 1,
+						toLast = toIndex == Object.keys(toObj).length - 1;
+
+				if (compareObj[compareIndex].char == toObj[toIndex].char) {
+					compareObj[i].percentage = compareObj[i].percentage + (weight.char / weight.total);
+				}
+				// else if (compareLast && toLast) {
+				// 	if (compareObj[compareIndex++].char == toObj[toIndex++].char) {
+				// 		//either both are extra char or wrong char
+				// 	}
+				// }
+				else if (compareLast) {
+					if (compareObj[compareIndex++].char == toObj[toIndex].char) {
+						//compare string has extra char
+						toErr--;
+					}
+				}
+				else if (toLast) {
+					if (compareObj[compareIndex].char == toObj[toIndex++].char) {
+						//either both are extra char or wrong char
+						toErr++;
+					}
+				}
+				else {
+					//no wrapper case found
+				}
+			}
+		}
+
+
+		doIndex++;
+	} while (doIndex < starting.length);
 }
 
 var startingPositions = function (compareObj, toObj) {
 	/*
-		find nodes in toString/obj that are feasable for starting position
+		find nodes in obj that are feasable for starting position
 	*/
 	var startObj = {},
+			starting = [],
 			weight = {
 				'char': 5,
 				'descendant': 3,
@@ -107,7 +173,10 @@ var startingPositions = function (compareObj, toObj) {
 			}
 		}
 	}
-	return startObj;
+	for (i in startObj) {
+		if (startObj[i].value > .5) starting[starting.length] = i;
+	}
+	return starting;
 }
 
 module.exports = {
@@ -115,18 +184,18 @@ module.exports = {
 	stringMatch: function (compareStr, toStr, options) {
 		if (typeof options !== undefined) options = [];
 
-		var percentage = 1, //0-1
+		var percentage = -1, //0-1 if successfull
 				object = {};
 
 		// build arrays
-		compareArray = breakString(compareStr, options.noParthesis);
+		compareArray = breakString(compareStr);
 		toArray = breakString(toStr);
 
 		// from arrays to objects
 		compareObject = introspection(compareArray, compareArray.length);
 		toObject =  introspection(toArray, toArray.length);
 
-		inspection(compareObject, toObject);
+		percentage = inspection(compareObject, toObject);
 
 		return percentage;
 	}
