@@ -123,7 +123,7 @@ module.exports = {
 	stringMatch: function (compareStr, toStr, options) {
 		if (typeof options !== undefined) options = [];
 
-		var percentage = 1, //0-1
+		var percentage = -1, //0-1 if successfull
 				object = {};
 
 		// build arrays
