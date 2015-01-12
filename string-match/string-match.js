@@ -86,24 +86,33 @@ var inspection = function (compareObj, toObj) {
 			var toIndex = toErr + parseInt(starting[doIndex]) + parseInt(i),
 					compareIndex = compareErr + parseInt(i);
 
-			if (!(toIndex > Object.keys(toObj).length - 1) || !(compareIndex > Object.keys(compareObj).length - 1)) {
-				// // comparison wrapper char match
-				// if (compareObj[].char == toObj[i].char) {
-				// }
-				// else if (compareObj[i++].char == toObj[i++].char) {
-				// 	//either both are extra char or wrong char
-				// }
-				// else if (compareObj[i++].char == toObj[i].char) {
-				// 	//compare string has extra char
-				// /	compareErr++;
-				// }
-				// else if (compareObj[i].char == toObj[i++].char) {
-				// 	//either both are extra char or wrong char
-				// 	toErr++;
-				// }
-				// else {
-				// 	//no wrapper case found just rate
-				// }
+			if (toIndex <= Object.keys(toObj).length - 1 && compareIndex <= Object.keys(compareObj).length - 1) {
+				// comparison wrapper char match
+				var compareLast = compareIndex == Object.keys(compareObj).length - 1,
+						toLast = toIndex == Object.keys(toObj).length - 1;
+
+				if (compareObj[compareIndex].char == toObj[toIndex].char) {
+				}
+				else if (compareLast && toLast) {
+					if (compareObj[compareIndex++].char == toObj[toIndex++].char) {
+						//either both are extra char or wrong char
+					}
+				}
+				else if (compareLast) {
+					if (compareObj[compareIndex++].char == toObj[toIndex].char) {
+						//compare string has extra char
+						compareErr++;
+					}
+				}
+				else if (toLast) {
+					if (compareObj[compareIndex].char == toObj[toIndex++].char) {
+						//either both are extra char or wrong char
+						toErr++;
+					}
+				}
+				else {
+					//no wrapper case found
+				}
 			}
 		}
 
