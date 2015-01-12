@@ -53,6 +53,7 @@ var introspection = function (array, i) {
 var inspection = function (compareObj, toObj) {
 	var percentage = -1,
 			starting = startingPositions(compareObj, toObj),
+			subCompareObj = {},
 			doIndex = 0;
 
 	var weight = {
@@ -75,11 +76,27 @@ var inspection = function (compareObj, toObj) {
 			};
 
 	weight.setTotal();
-	
+
 	do {
-		
+		for(i in compareObj) {
+			compareObj[0].percentage = 0;
+
+			// comparison wrapper char match
+			if (compareObj[0].char == toObj[0].char) {
+			}
+			else if (compareObj[0++].char == toObj[0].char) {
+			}
+			else if (compareObj[0++].char == toObj[0++].char) {
+			}
+			else if (compareObj[0].char == toObj[0++].char) {
+			}
+			else {
+				//no wrapper case found just rate
+			}
+		}
+
 		doIndex++;
-	} while (percentage > .8 && doIndex < starting.length);
+	} while (doIndex < starting.length);
 }
 
 var startingPositions = function (compareObj, toObj) {
